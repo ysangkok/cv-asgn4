@@ -1,0 +1,4 @@
+How do you compute the variance of a single principal component?
+Why can the variance be obtained in that way?
+
+>
