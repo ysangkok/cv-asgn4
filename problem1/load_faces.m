@@ -17,21 +17,30 @@ yaleDirectoryNames = {listing.name};
 yaleDirectoryNames(:,1) = []; % delete "."
 yaleDirectoryNames(:,1) = []; % delete ".."
 
-uint8mat = [];
+uint8mat = zeros(8064, 20*38);
 nfaces = 0;
 
-for i=1:size(yaleDirectoryNames)
+for i=1:size(yaleDirectoryNames,2)
    imgNames = dir(['../../data/yale_faces/' yaleDirectoryNames{i} '/*']);
    imgNames = {imgNames.name};
    imgNames(:,1) = []; % delete "."
    imgNames(:,1) = []; % delete ".."
    picturesInSubfolder = cellfun(@(x) imread(['../../data/yale_faces/' yaleDirectoryNames{i} '/' x],'pgm'), imgNames, 'UniformOutput', false);
-   facedim = size(picturesInSubfolder{1}); % just take dimensions of the first
-   nfaces = nfaces + size(picturesInSubfolder,2);
-   uint8mat = [uint8mat; cell2mat(picturesInSubfolder)] ;
+   
+   fprintf('%s\n', yaleDirectoryNames{i})
+   for j=1:size(picturesInSubfolder,2)
+       facedim = size(picturesInSubfolder{j}); % just take dimensions of the first
+       uint8mat(:,nfaces+1) = reshape(picturesInSubfolder{j}, facedim(1)*facedim(2), 1);
+       nfaces = nfaces + 1;
+   end
 end
 
 data = double(uint8mat) / 255;
+
+assert(facedim(1)*facedim(2) > 8000)
+assert(size(data,1) == facedim(1)*facedim(2), 'image dimensions not on first axis (M): %d != %d', size(data,1), facedim(1)*facedim(2))
+assert(nfaces == 20*38, 'nfaces is %d but should be %d', nfaces, 20*38)
+assert(size(data,2) == nfaces, 'size is %d but should be %d', size(data,2), nfaces)
 
 % format check
 assert(isfloat(data) && 0 <= min(data(:)) && max(data(:)) <= 1);
