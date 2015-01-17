@@ -11,7 +11,14 @@ function [U,lambda,mu,cumvar] = compute_pca(X)
 %   cumvar   cumulative variance (in increasing order)
 %%
 
-U =
-lambda =
-mu =
-cumvar =
+% the following causes a dimension mismatch, how to fix?
+X_hat = (X-mean(X)); % substract the mean, slide 50
+[U,S,V_t] = svd(X_hat,0); % economic SVD, slide 50
+lambda = eigenvals(X_hat); % using the definition of lambda
+C_hat = U*lambda*U'; % slide 51
+
+
+%U =
+%lambda =
+%mu =
+%cumvar =

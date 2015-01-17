@@ -5,7 +5,7 @@ fdir = '../../data/yale_faces'; % yale_faces directory
 [data,facedim,nfaces] = load_faces(fdir);
 
 % Compute principal components (using compute_pca)
-
+[U,lambda,mu,cumvar] = compute_pca(data);
 
 % Plot the cumulative variance
 
