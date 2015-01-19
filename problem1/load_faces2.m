@@ -1,4 +1,4 @@
-function [data, facedim, nfaces] = load_faces(fdir)
+function [data, facedim, nfaces] = load_faces2(fdir)
 %{
  Loads images from yale database.
 

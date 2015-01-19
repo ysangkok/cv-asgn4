@@ -12,7 +12,7 @@ function [data,facedim,nfaces] = load_faces(fdir)
 %   nfaces     number of all face images
 %%
 
-listing = dir('../../data/yale_faces/*');
+listing = dir([fdir '/*']);
 yaleDirectoryNames = {listing.name};
 yaleDirectoryNames(:,1) = []; % delete "."
 yaleDirectoryNames(:,1) = []; % delete ".."
