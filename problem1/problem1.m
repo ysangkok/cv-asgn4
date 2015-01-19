@@ -5,26 +5,15 @@ fdir = '../../data/yale_faces'; % yale_faces directory
 [data,facedim,nfaces] = load_faces(fdir); %load_faces2(fdir);
 
 % Compute principal components (using compute_pca)
-%% TODO [U,lambda,mu,cumvar] = compute_pca(data);
-X = data;
-N = size(X,2);
-mu = mean(X,2);
-X_hat = ( X - repmat(mu, 1, N) ); % substract the mean, slide 50
-[U,S,V] = svd(X_hat,0); % economic SVD, slide 50
+[U,lambda,mu,cumvar] = compute_pca(data);
 
-% TODO : check decreasing order in U
-lambda = (S*S)/N;
-%lambda = eigenvals(X_hat); % using the definition of lambda
-C_hat = U*lambda*U'; % slide 51
-
-% TODO cumvar : cumulative variance of the principal components (in increasing order)
 %%
-%{
+
 % Plot the cumulative variance
 figure
 title('cumulative variance')
 imshow(cumvar);
-
+%{
 % Display number of necessary components (using compute_ncomponents)
 
 %% TODO
