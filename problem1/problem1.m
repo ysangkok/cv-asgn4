@@ -7,13 +7,13 @@ fdir = '../../data/yale_faces'; % yale_faces directory
 % Compute principal components (using compute_pca)
 %% TODO [U,lambda,mu,cumvar] = compute_pca(data);
 X = data;
-M = size(X,2);
+N = size(X,2);
 mu = mean(X,2);
-X_hat = ( X - repmat(mu, 1, M) ); % substract the mean, slide 50
+X_hat = ( X - repmat(mu, 1, N) ); % substract the mean, slide 50
 [U,S,V] = svd(X_hat,0); % economic SVD, slide 50
 
 % TODO : check decreasing order in U
-lambda = (S*S)/M;
+lambda = (S*S)/N;
 %lambda = eigenvals(X_hat); % using the definition of lambda
 C_hat = U*lambda*U'; % slide 51
 
