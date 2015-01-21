@@ -20,10 +20,5 @@ lambda = (S*S)/N;
 %lambda = eigenvals(X_hat); % using the definition of lambda
 C_hat = U*lambda*U'; % slide 51
 
-% TODO cumvar : cumulative variance of the principal components (in increasing order)
-cumvar = cumsum(C_hat * U);
-
-%U =
-%lambda =
-%mu =
-%cumvar =
+% cumvar : cumulative variance of the principal components (in increasing order)
+cumvar = cumsum(lambda * U); // lamba*U == C_hat*U
