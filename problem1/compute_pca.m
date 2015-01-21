@@ -17,8 +17,7 @@ X_hat = ( X - repmat(mu, 1, N) ); % substract the mean, slide 50
 
 % check decreasing order in U  : ok
 lambda = (S*S)/N;
-%lambda = eigenvals(X_hat); % using the definition of lambda
-C_hat = U*lambda*U'; % slide 51
+%C_hat = U*lambda*U'; % slide 51
 
 % cumvar : cumulative variance of the principal components (in increasing order)
-cumvar = cumsum(lambda * U); // lamba*U == C_hat*U
+cumvar = cumsum(lambda * U); % lambda*U == C_hat*U

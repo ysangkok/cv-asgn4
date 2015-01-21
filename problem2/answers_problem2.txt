@@ -1,3 +1,3 @@
 Why is it better to compute and compare log posteriors rather than using the posterior probabilities directly?
 
->
+> It is better because log has a better (more uniform) distribution over the parameter.
