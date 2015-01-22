@@ -20,15 +20,51 @@ function [training_inputs,testing_inputs] = load_data(dir_planes,dir_bikes)
 %      num_samples       number of images in testing set
 %%
 
+% Load images 
+dir_planes = '../../data/planes';
+planes = dir(sprintf('%s//*.png', dir_planes));
+nbPlanes = length(planes);
+seqTrainP = datasample(1:nbPlanes,floor(nbPlanes/2), 'Replace',false);
 
-training_inputs.images =
-training_inputs.labels =
-training_inputs.num_samples =
+dir_bikes = '../../data/bikes';
+bikes = dir(sprintf('%s//*.png', dir_bikes));
+nbBikes = length(bikes);
+seqTrainB = datasample(1:nbBikes,floor(nbBikes/2), 'Replace',false);
 
-testing_inputs.images =
-testing_inputs.labels =
-testing_inputs.num_samples =
+training_inputs.images = cell(1, floor(nbPlanes/2)+floor(nbBikes/2));
+testing_inputs.images = cell(1, ceil(nbPlanes/2)+ceil(nbBikes/2));
 
+training_inputs.num_samples = 0;
+testing_inputs.num_samples = 0;
+for i=1:nbPlanes
+    if any(seqTrainP==i)
+        % in training set
+        training_inputs.num_samples = training_inputs.num_samples + 1;
+        training_inputs.labels(i) = 0;
+        training_inputs.images{training_inputs.num_samples} = im2double(imread(sprintf('%s//%s',dir_planes, planes(i).name)));
+    else
+        % in test data
+        testing_inputs.num_samples = testing_inputs.num_samples + 1;
+        testing_inputs.labels = 0;
+        testing_inputs.images{testing_inputs.num_samples} = im2double(imread(sprintf('%s//%s',dir_planes, planes(i).name)));
+    end
+end
+
+for i=1:nbBikes
+    if any(seqTrainB==i)
+        % in training set
+        training_inputs.num_samples = training_inputs.num_samples + 1;
+        training_inputs.labels(i) = 1;
+        training_inputs.images{training_inputs.num_samples} = im2double(imread(sprintf('%s//%s',dir_bikes, bikes(i).name)));
+    else
+        % in test data
+        testing_inputs.num_samples = testing_inputs.num_samples + 1;
+        testing_inputs.labels = 1;
+        testing_inputs.images{testing_inputs.num_samples} = im2double(imread(sprintf('%s//%s',dir_bikes, bikes(i).name)));
+    end
+end
+
+assert( testing_inputs.num_samples == ceil(nbPlanes/2)+ceil(nbBikes/2) & training_inputs.num_samples == floor(nbPlanes/2)+floor(nbBikes/2))
 
 % format check
 fcheck = @(data) assert(isstruct(data) & isfield(data,'images') & ...
