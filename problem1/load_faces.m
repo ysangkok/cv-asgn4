@@ -11,13 +11,18 @@ function [data,facedim,nfaces] = load_faces(fdir)
 %   facedim    image dimensions (of a single face)
 %   nfaces     number of all face images
 %%
+persistent Pnfaces;
+persistent Pdata;
+persistent Pfacedim;
+
+if isempty(Pdata)
 
 listing = dir([fdir '/*']);
 yaleDirectoryNames = {listing.name};
 yaleDirectoryNames(:,1) = []; % delete "."
 yaleDirectoryNames(:,1) = []; % delete ".."
 
-uint8mat = zeros(8064, 20*38);
+data = zeros(8064, 20*38);
 nfaces = 0;
 
 for i=1:size(yaleDirectoryNames,2)
@@ -25,17 +30,28 @@ for i=1:size(yaleDirectoryNames,2)
    imgNames = {imgNames.name};
    imgNames(:,1) = []; % delete "."
    imgNames(:,1) = []; % delete ".."
-   picturesInSubfolder = cellfun(@(x) imread(['../../data/yale_faces/' yaleDirectoryNames{i} '/' x],'pgm'), imgNames, 'UniformOutput', false);
+   picturesInSubfolder = cellfun(@(x) im2double(imread(['../../data/yale_faces/' yaleDirectoryNames{i} '/' x],'pgm')), imgNames, 'UniformOutput', false);
    
    fprintf('%s\n', yaleDirectoryNames{i})
    for j=1:size(picturesInSubfolder,2)
        facedim = size(picturesInSubfolder{j}); % just take dimensions of the first
-       uint8mat(:,nfaces+1) = reshape(picturesInSubfolder{j}, facedim(1)*facedim(2), 1);
+       data(:,nfaces+1) = reshape(picturesInSubfolder{j}, facedim(1)*facedim(2), 1);
        nfaces = nfaces + 1;
    end
 end
 
-data = double(uint8mat) / 255;
+Pnfaces = nfaces;
+Pdata = data;
+Pfacedim = facedim;
+
+else
+    
+fprintf('load_faces: Using cached images...\n');
+nfaces = Pnfaces;
+data = Pdata;
+facedim = Pfacedim;
+
+end
 
 assert(facedim(1)*facedim(2) > 8000)
 assert(size(data,1) == facedim(1)*facedim(2), 'image dimensions not on first axis (M): %d != %d', size(data,1), facedim(1)*facedim(2))
