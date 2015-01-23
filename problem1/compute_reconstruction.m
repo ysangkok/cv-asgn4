@@ -12,4 +12,8 @@ function imrecon = compute_reconstruction(faceim,U,mu,ncomp)
 %   imrecon  reconstructed face image
 %%
 
-imrecon =
+face = faceim(:);
+imrecon = mu;
+for i=1:ncomp
+    imrecon = imrecon + U(:,i)'*face*U(:,i);
+end

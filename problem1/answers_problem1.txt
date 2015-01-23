@@ -1,4 +1,8 @@
 How do you compute the variance of a single principal component?
 Why can the variance be obtained in that way?
 
->
+TO CHECK!!!
+>  The variance of a single principal component u_i is lambda_i*u_i where 
+lambda_i is the eigenvalue (of the covariance matrix) associated to u_i
+It is possible so because the principal component is a eigenvector of the 
+covairiance matirx

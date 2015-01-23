@@ -28,4 +28,18 @@ imshow(random_face);
 
 % Project and reconstruct this face varying the number of principal components (using compute_reconstruction).
 % Use 5/15/50/150 components, respectively.
+figure
+title('reconstruction with 5 components')
+imshow( reshape( compute_reconstruction(random_face,U,mu,5), facedim ) );
 
+figure
+title('reconstruction with 15 components')
+imshow( reshape( compute_reconstruction(random_face,U,mu,15), facedim ) );
+
+figure
+title('reconstruction with 50 components')
+imshow( reshape( compute_reconstruction(random_face,U,mu,50), facedim ) );
+
+figure
+title('reconstruction with 150 components')
+imshow( reshape( compute_reconstruction(random_face,U,mu,150), facedim ) );
