@@ -40,12 +40,12 @@ for i=1:nbPlanes
     if any(seqTrainP==i)
         % in training set
         training_inputs.num_samples = training_inputs.num_samples + 1;
-        training_inputs.labels(i) = 0;
+        training_inputs.labels(training_inputs.num_samples) = 0;
         training_inputs.images{training_inputs.num_samples} = im2double(imread(sprintf('%s//%s',dir_planes, planes(i).name)));
     else
         % in test data
         testing_inputs.num_samples = testing_inputs.num_samples + 1;
-        testing_inputs.labels = 0;
+        testing_inputs.labels(testing_inputs.num_samples) = 0;
         testing_inputs.images{testing_inputs.num_samples} = im2double(imread(sprintf('%s//%s',dir_planes, planes(i).name)));
     end
 end
@@ -54,12 +54,12 @@ for i=1:nbBikes
     if any(seqTrainB==i)
         % in training set
         training_inputs.num_samples = training_inputs.num_samples + 1;
-        training_inputs.labels(i) = 1;
+        training_inputs.labels(training_inputs.num_samples) = 1;
         training_inputs.images{training_inputs.num_samples} = im2double(imread(sprintf('%s//%s',dir_bikes, bikes(i).name)));
     else
         % in test data
         testing_inputs.num_samples = testing_inputs.num_samples + 1;
-        testing_inputs.labels = 1;
+        testing_inputs.labels(testing_inputs.num_samples) = 1;
         testing_inputs.images{testing_inputs.num_samples} = im2double(imread(sprintf('%s//%s',dir_bikes, bikes(i).name)));
     end
 end

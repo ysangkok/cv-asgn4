@@ -31,19 +31,6 @@ K = 50;                  % number of keypoints in codebook
 % Load training/testing data (using load_data)
 [training.inputs,testing.inputs] = load_data('../../data/planes','../../data/bikes');
 
-
-%{
-     for ( i=1:length(files(:,1)) )
-       img = [];
-       %disp(files(i).name)
-       img = im2double(imread(sprintf('%s//%s//%s',fdir, rep, files(i).name)));
-       nfaces = nfaces+1;
-       data(:,nfaces) = img(:);
-     end
-  end
-end
-%}
-
 % extract features of interest points for training/testing inputs (using extract_features)
 
 
