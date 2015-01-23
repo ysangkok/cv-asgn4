@@ -9,8 +9,22 @@ function codebook = compute_codebook(X,K)
 % OUTPUTS
 %   codebook    DIMxK matrix where each column corresponds to a keypoint in the resulting codebook.
 %%
+[DIM N] = size(X);
 
-codebook =
+% choose randomly K data points as cluster centers
+ccenters = datasample(1:N, K, 'Replace',false);
+done = false;
+while (~done)
+    % compute a Voronoi diagram with these chosen centers
+    % compute the new center for eah region of the diagram
+    % and assign them as new cluster centers
+    ccenters_p =
+    if ( all(ccenters_p == ccenters) )
+        % the cluster centers are unchanged
+        done = true
+    end
+end
+codebook = X(:, ccenters);
 
 % format check
 assert(all(size(codebook) == [size(X,1) K]));
