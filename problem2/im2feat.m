@@ -12,7 +12,7 @@ function F = im2feat(im,fsize,sigma,threshold,boundary)
 %   F                  128xN SIFT features, where N is the number of interest points.
 %%
 
-[mask, unused_harris_values] = harris(im, sigma, fsize, threshold);
+[maskH, unused_harris_values] = harris(im, sigma, fsize, threshold);
 % Usage:   [mask, harris] = harris(img, sigma, fsize, th)
 %
 % Argument:
@@ -21,9 +21,16 @@ function F = im2feat(im,fsize,sigma,threshold,boundary)
 %   fsize  - filter size
 %   th     - threshold for Harris function values
 
-[x,y] = find(mask);
+width = size(im,2);
+height = size(im,1);
+half = fix(width/2);
+mask = logical(zeros(height, width));
+mask(1+boundary:height-boundary, half:width-boundary) = 1; % right half of the left image outside of the boundary
 
-F = sift(im,x,y);
+maskKey = mask .* maskH; % logical and
+[py, px] = find(maskKey == 1);
+
+F = sift(im,px,py);
 %   im          image (rgb or grayscale)
 %   x           vector of x-coordinates of keypoints
 %   y           vector of y-coordinates of keypoints

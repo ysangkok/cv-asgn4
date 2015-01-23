@@ -15,7 +15,7 @@ for j=1:nbImages
     feature_matrix = features{j};
     M = size(feature_matrix, 2);
     for i=N_p+1:N_p+M
-        X(:,i) = feature_matrix(i-N_p);
+        X(:,i) = feature_matrix(:,i-N_p);
     end
 end
 

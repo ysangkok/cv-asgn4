@@ -32,11 +32,12 @@ K = 50;                  % number of keypoints in codebook
 [training.inputs,testing.inputs] = load_data('../../data/planes','../../data/bikes');
 
 % extract features of interest points for training/testing inputs (using extract_features)
-extract_features([training.inputs.images testing.inputs.images], params);
+features = extract_features([training.inputs.images testing.inputs.images], params);
 
 
 % construct a single (concatenated) feature matrix from (only) the training data
 % (using concatenate_features)
+concatenate_features(features);
 
 
 %  build a codeword dictionary from the feature matrix (using compute_codebook)
