@@ -23,6 +23,7 @@ while (~done)
         % the cluster centers are unchanged
         done = true
     end
+    ccenters = centers_p
 end
 codebook = X(:, ccenters);
 
