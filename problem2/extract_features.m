@@ -17,7 +17,7 @@ function features = extract_features(images,params)
 %                     interest points for the j-th image in 'images'.
 %%
 
-features =
+features = cellfun(@(img) im2feat(img, params.fsize, params.sigma, params.threshold, params.boundary), images, 'UniformOutput', false);
 
 % format check
 assert(iscell(features) & all(size(features)==size(images)));
