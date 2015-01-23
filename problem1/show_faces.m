@@ -9,12 +9,19 @@ function show_faces(U,mu,facedim)
 %%
 
 figure
-title('display_faces')
+title('display_faces');
 
 %% display mean face
-subplot(5,2,1); imshow(mu);
+%subplot(2,5,1);
+imshow(reshape(mu,facedim));
 
 %% TODO
 %display the 10 first Eigenfaces
-subplot(5,2,3); imshow(U(1,1));
+figure
+title('first 10 Eigenfaces');
+for i=1:10
+    subplot(2,5,i);
+    imshow(reshape(U(:,i),facedim));
+    imagesc;
+end
 %

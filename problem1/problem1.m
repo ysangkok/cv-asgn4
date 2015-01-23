@@ -12,15 +12,15 @@ fdir = '../../data/yale_faces'; % yale_faces directory
 % Plot the cumulative variance
 figure
 title('cumulative variance')
-imshow(cumvar);
-%{
-% Display number of necessary components (using compute_ncomponents)
+plot(cumvar);
 
-%% TODO
+% Display number of necessary components (using compute_ncomponents)
+[n80, n95] = compute_ncomponents(cumvar);
+
 % Plot the mean face and the first 10 Eigenfaces (using show_faces)
 show_faces(U,mu,facedim)
 
-
+%{
 % Fetch a random face out of the data matrix (using take_face)
 
 

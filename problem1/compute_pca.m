@@ -20,4 +20,5 @@ lambda = (S*S)/N;
 %C_hat = *U'; % slide 51
 
 % cumvar : cumulative variance of the principal components (in increasing order)
-cumvar = cumsum(U*lambda); % lambda*U == C_hat*U
+cumvar = cumsum(diag(lambda)); % lambda*U == C_hat*U
+

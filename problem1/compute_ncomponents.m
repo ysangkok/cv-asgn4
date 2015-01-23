@@ -9,5 +9,17 @@ function [n80,n95] = compute_ncomponents(cumvar)
 %   n95     number of components required for 95% of variance.
 %%
 
-n80 =
-n95 =
+total = sum(cumvar);
+
+n80 = 0;
+n95 = 0;
+
+for i=1:size(cumvar)
+   if (n80 == 0 && sum(cumvar(1:i))/total > 0.8)
+       n80 = i;
+   end
+   if (n95 == 0 && sum(cumvar(1:i))/total > 0.95)
+       n95 = i;
+       break;
+   end
+end
