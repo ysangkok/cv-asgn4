@@ -10,7 +10,16 @@ function histogram = compute_histogram(features,codebook,K)
 %   histogram    K x num_samples matrix, that assembles the histograms for all images (over the codebook).
 %%
 
-histogram =
+assert(size(codebook,2) == K);
+num_samples = size(features,1);
+
+histogram = zeroes([K, num_samples]);
+
+for featNum=1:num_samples
+    for keypointNum=1:K
+        dists = features{featNum} norm( codebook(:,keypointNum)' ; %TODO
+    end
+end
 
 % format check
 assert(all(size(histogram) == [K size(features,2)]));
