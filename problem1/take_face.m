@@ -10,4 +10,4 @@ function faceim = take_face(data,facedim,index)
 %   faceim     fetched face image
 %%
 
-faceim =
+faceim = reshape(data(:,index),facedim);
