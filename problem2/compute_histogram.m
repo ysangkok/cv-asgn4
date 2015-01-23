@@ -17,7 +17,9 @@ histogram = zeroes([K, num_samples]);
 
 for featNum=1:num_samples
     for keypointNum=1:K
-        dists = features{featNum} norm( codebook(:,keypointNum)' ; %TODO
+        dists = (features{featNum} - repmat(codebook(:,keypointNum), 128, size(features{featNum}, 2))) .^ 2;
+        [val, idx] = max(dists);
+        histogram(keypointNum, idx) = histogram(keypointNum, idx) + 1;
     end
 end
 
