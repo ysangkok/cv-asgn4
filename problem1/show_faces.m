@@ -19,7 +19,6 @@ imshow(reshape(mu,facedim))
 %display the 10 first Eigenfaces
 figure
 colormap('gray')
-truesize
 title('first 10 Eigenfaces')
 for i=1:10
     subplot(2,5,i)
