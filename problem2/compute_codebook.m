@@ -13,7 +13,7 @@ function codebook = compute_codebook(X,K)
 
 %% choose randomly K data points as cluster centers
 % to make it easier we just picked randomly K samples
-ccentersInd = datasample(1:N, K, 'Replace',false);
+ccentersInd = datasample(1:N, K, 'Replace', false);
 ccenters = X(:, ccentersInd);
 done = false;
 
@@ -21,7 +21,7 @@ while (~done)
 
     %% compute a Voronoi diagram with these chosen centers (initialize clusters)
     clusters.nbMembers = zeros(1, K); % vector 1xK
-    clusters.points = cell(1, K); % cell of matrix DIMxclusters.nbMembers{i}
+    clusters.points = cell(1, K); % cell of matrices DIMxclusters.nbMembers{i}
     	% for each sample i
 		% compute the distance to each cluster center
     D = pdist2(X,ccenters);
