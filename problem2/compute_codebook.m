@@ -27,7 +27,7 @@ while (~done)
     D = pdist2(X,ccenters);
 		% min of the distances gives you the cluster the sample belongs to
     for i=1:N
-      [_ clusterNo(i)] = min( D(i,:) );
+      [A clusterNo(i)] = min( D(i,:) );
 		% add the sample in his cluster representation
       clusters.nbMembers{clusterNo(i)} = clusters.nbMembers{clusterNo(i)} + 1;
       clusters.points{clusterNo(i)}(:, clusters.nbMembers{clusterNo(i)}) = X(:, i);
