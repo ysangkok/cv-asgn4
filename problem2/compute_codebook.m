@@ -24,7 +24,7 @@ while (~done)
     clusters.points = cell(1, K); % cell of matrices DIMxclusters.nbMembers{i}
     	% for each sample i
 		% compute the distance to each cluster center
-    D = pdist2(X,ccenters);
+    D = pdist2(X',ccenters');
 		% min of the distances gives you the cluster the sample belongs to
     for i=1:N
       [A clusterNo(i)] = min( D(i,:) );
