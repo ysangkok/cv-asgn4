@@ -10,13 +10,14 @@ function codebook = compute_codebook(X,K)
 %   codebook    DIMxK matrix where each column corresponds to a keypoint in the resulting codebook.
 %%
 [DIM N] = size(X);
+epsilon = 1e-5;
 
 %% choose randomly K data points as cluster centers
 % to make it easier we just picked randomly K samples
 ccentersInd = datasample(1:N, K, 'Replace', false);
 ccenters = X(:, ccentersInd);
 done = false;
-
+niter = 0;
 while (~done)
 
     %% compute a Voronoi diagram with these chosen centers (initialize clusters)
@@ -29,8 +30,8 @@ while (~done)
     for i=1:N
       [A clusterNo(i)] = min( D(i,:) );
 		% add the sample in his cluster representation
-      clusters.nbMembers{clusterNo(i)} = clusters.nbMembers{clusterNo(i)} + 1;
-      clusters.points{clusterNo(i)}(:, clusters.nbMembers{clusterNo(i)}) = X(:, i);
+      clusters.nbMembers(clusterNo(i)) = clusters.nbMembers(clusterNo(i)) + 1;
+      clusters.points{clusterNo(i)}(:, clusters.nbMembers(clusterNo(i))) = X(:, i);
     end
 
     %% compute the new center for eah region of the diagram (mean of all the
@@ -41,13 +42,16 @@ while (~done)
     end
 
     %% check the criterion of stop
-    if ( all(ccenters_p == ccenters) )
+    % if ( all(ccenters_p == ccenters) )
+    if ( all( (ccenters_p - ccenters) < epsilon) )
         % the cluster centers are unchanged
         done = true;
     end
-    ccenters = centers_p;
+    ccenters = ccenters_p;
+    niter = niter + 1;
 end
 codebook = ccenters;
+niter
 
 % format check
 assert(all(size(codebook) == [size(X,1) K]));
