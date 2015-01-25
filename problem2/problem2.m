@@ -37,8 +37,7 @@ features = extract_features([training.inputs.images testing.inputs.images], para
 
 % construct a single (concatenated) feature matrix from (only) the training data
 % (using concatenate_features)
-concatenate_features(features);
-
+X = concatenate_features(features);
 
 %  build a codeword dictionary from the feature matrix (using compute_codebook)
 
