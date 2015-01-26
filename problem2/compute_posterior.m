@@ -20,8 +20,8 @@ function [lp_c0,lp_c1] = compute_posterior(bayes_classifier,histogram)
 %%
 
 
-lp_c0 =
-lp_c1 =
+lp_c0 = arrayfun(@log, bayes_classifier.prior_c0 * bayes_classifier.pc_c0 )
+lp_c1 = arrayfun(@log, bayes_classifier.prior_c1 * bayes_classifier.pc_c1 )
 
 
 % format check
