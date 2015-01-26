@@ -19,7 +19,7 @@ for featNum=1:num_samples
     for keypointNum=1:K
         rm = repmat(codebook(:,keypointNum), 1, size(features{featNum}, 2));
         dists = sum((features{featNum} - rm) .^ 2);
-        [val, idx] = max(dists);
+        [val, idx] = min(dists);
         assert(size(idx,1) == 1 && size(idx,2) == 1);
         histogram(keypointNum, idx) = histogram(keypointNum, idx) + 1;
     end
@@ -27,4 +27,4 @@ end
 
 % format check
 assert(all(size(histogram) == [K size(features,2)]));
-
+assert( min(min(histogram)) >= 0);
