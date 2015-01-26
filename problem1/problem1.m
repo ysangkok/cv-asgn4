@@ -10,8 +10,7 @@ fdir = '../../data/yale_faces'; % yale_faces directory
 %%
 
 % Plot the cumulative variance
-figure
-title('cumulative variance')
+figure('Name', 'cumulative variance')
 plot(cumvar);
 
 % Display number of necessary components (using compute_ncomponents)
@@ -22,24 +21,19 @@ show_faces(U,mu,facedim)
 
 % Fetch a random face out of the data matrix (using take_face)
 random_face = take_face(data, facedim, datasample(1:facedim,1));
-figure
-title('ramdom face picked')
+figure('Name', 'ramdom face picked')
 imshow(random_face);
 
 % Project and reconstruct this face varying the number of principal components (using compute_reconstruction).
 % Use 5/15/50/150 components, respectively.
-figure
-title('reconstruction with 5 components')
+figure('Name', 'reconstruction with 5 components')
 imshow( reshape( compute_reconstruction(random_face,U,mu,5), facedim ) );
 
-figure
-title('reconstruction with 15 components')
+figure('Name', 'reconstruction with 15 components')
 imshow( reshape( compute_reconstruction(random_face,U,mu,15), facedim ) );
 
-figure
-title('reconstruction with 50 components')
+figure('Name', 'reconstruction with 50 components')
 imshow( reshape( compute_reconstruction(random_face,U,mu,50), facedim ) );
 
-figure
-title('reconstruction with 150 components')
+figure('Name', 'reconstruction with 150 components')
 imshow( reshape( compute_reconstruction(random_face,U,mu,150), facedim ) );

@@ -27,3 +27,4 @@ end
 
 % format check
 assert(all(size(histogram) == [K size(features,2)]));
+

@@ -8,16 +8,14 @@ function show_faces(U,mu,facedim)
 %   facedim    face dimension
 %%
 
-figure
-title('display_faces')
+
 
 %% display mean face
-%subplot(2,5,1);
+figure('Name', 'mean face')
 imshow(reshape(mu,facedim))
 
-%% TODO
-%display the 10 first Eigenfaces
-figure
+%% display the 10 first Eigenfaces
+figure('Name', '10 first Eigenfaces')
 colormap('gray')
 title('first 10 Eigenfaces')
 for i=1:10

@@ -27,6 +27,7 @@ K = 50;                  % number of keypoints in codebook
 %--------------------------------------------------------------------------------------------
 % 1) CREATE CODEWORD DICTIONARY from training data
 %--------------------------------------------------------------------------------------------
+close all;
 
 % Load training/testing data (using load_data)
 [training.inputs,testing.inputs] = load_data('../../data/planes','../../data/bikes');
@@ -51,18 +52,25 @@ codebook = compute_codebook(X, K);
 
 % Compute histograms over the codebook for training/testing features (using compute_histogram)
 training.histogram = compute_histogram(training.features,codebook,K);
+display_histogram(training.histogram, 'keypoints (codebook)', 'number of occurrences of keypoints', 'Histogram for training set', K);
+
 testing.histogram = compute_histogram(testing.features,codebook,K);
+display_histogram(testing.histogram, 'keypoints (codebook)', 'number of occurrences of keypoints', 'Histogram for testing set', K);
 
 % Train a Naive Bayes Classifier by means of the training histograms (using train_bayes)
+labels = [0 1];
+%bayes_classifier = train_bayes( labels, training_inputs.num_samples,
+%training.histogram, K);
 
-
-% Compute log posteriors for training/testing data (using compute_posterior)
-
-
-% Compute the predictions as well as the error rate for training/testing data (using test_bayes)
-
-
-% display error rate
-
-
+% % Compute log posteriors for training/testing data (using compute_posterior)
+% [training.lp_c0, training.lp_c1] = compute_posterior(bayes_classifier, training.histogram);
+% [testing.lp_c0, testing.lp_c1] = compute_posterior(bayes_classifier, testing.histogram);
+% 
+% % Compute the predictions as well as the error rate for training/testing data (using test_bayes)
+% [training.predictions, training.error] = test_bayes(training.lp_c0, training.lp_c1, labels);
+% [testing.predictions, testing.error] = test_bayes(testing.lp_c0, testing.lp_c1, labels);
+% 
+% % display error rate
+% fprintf('Error rate for training set :'); training.error
+% fprintf('Error rate for testing set :'); testing.error
 
