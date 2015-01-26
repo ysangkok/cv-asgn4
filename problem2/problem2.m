@@ -50,7 +50,8 @@ codebook = compute_codebook(X, K);
 %--------------------------------------------------------------------------------------------
 
 % Compute histograms over the codebook for training/testing features (using compute_histogram)
-
+training.histogram = compute_histogram(training.features,codebook,K);
+testing.histogram = compute_histogram(testing.features,codebook,K);
 
 % Train a Naive Bayes Classifier by means of the training histograms (using train_bayes)
 

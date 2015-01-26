@@ -11,14 +11,16 @@ function histogram = compute_histogram(features,codebook,K)
 %%
 
 assert(size(codebook,2) == K);
-num_samples = size(features,1);
+num_samples = size(features,2);
 
-histogram = zeroes([K, num_samples]);
+histogram = zeros([K, num_samples]);
 
 for featNum=1:num_samples
     for keypointNum=1:K
-        dists = (features{featNum} - repmat(codebook(:,keypointNum), 128, size(features{featNum}, 2))) .^ 2;
+        rm = repmat(codebook(:,keypointNum), 1, size(features{featNum}, 2));
+        dists = sum((features{featNum} - rm) .^ 2);
         [val, idx] = max(dists);
+        assert(size(idx,1) == 1 && size(idx,2) == 1);
         histogram(keypointNum, idx) = histogram(keypointNum, idx) + 1;
     end
 end

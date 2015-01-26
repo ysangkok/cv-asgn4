@@ -9,6 +9,12 @@ function codebook = compute_codebook(X,K)
 % OUTPUTS
 %   codebook    DIMxK matrix where each column corresponds to a keypoint in the resulting codebook.
 %%
+
+persistent Pcodebook;
+
+if isempty(Pcodebook)
+    fprintf('Calculating codebook\n');
+
 [DIM N] = size(X);
 epsilon = 1e-5;
 
@@ -49,9 +55,17 @@ while (~done)
     end
     ccenters = ccenters_p;
     niter = niter + 1;
+    
 end
 codebook = ccenters;
-niter
+Pcodebook = codebook;
 
 % format check
 assert(all(size(codebook) == [size(X,1) K]));
+
+else
+    fprintf('Using cached codebook...\n');
+    codebook = Pcodebook;
+end
+%niter
+
